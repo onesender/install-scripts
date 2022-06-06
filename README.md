@@ -16,12 +16,12 @@ Struktur akhir folder seperti ini:
     |-- resource
     |-- onesender-x86_64   -> file binary utama / aplikasi OneSender
 
-|-- /opt/onesender-01      -> aplikasi pertama
+|-- /opt/onesender-1      -> aplikasi pertama
     |-- resource
     |-- onesender-1        -> symlink ke path /opt/onesender-master/onesender-x86_64
     |-- config_1.yaml      -> file config instance pertama
 
-|-- /opt/onesender-02      -> aplikasi kedua
+|-- /opt/onesender-2      -> aplikasi kedua
     |-- resource
     |-- onesender-2        -> symlink ke path /opt/onesender-master/onesender-x86_64
     |-- config_2.yaml      -> file config instance kedua
@@ -67,4 +67,48 @@ cd /root/onesender-2.1.3/installer/symlink-technique/
 3. Jalankan script install
 ``` 
 sudo bash ./install-master.sh
+```
+
+#### 3. Install instance OneSender
+Step ini bertujuan install aplikasi OneSender. File master di atas hanyalah template install. Aplikasi yang benar-benar dijalankan menggunakan step ini.
+
+Setiap instalasi menggunakan folder yang berbeda-beda. Juga database dan file config yang berbeda-beda.
+
+1. Masuk ke folder instalasi
+```
+cd /root/onesender-2.1.3
+```
+*PS: Sesuikan folder instalasi dengan versi yang digunakan*
+
+2. Masuk ke folder install
+```
+cd /root/onesender-2.1.3/installer/symlink-technique/
+```
+
+3. Jalankan script install
+``` 
+sudo bash ./install-child.sh
+```
+
+Skrip ini akan menghasilkan folder baru dengan struktur seperti ini:
+```
+|-- /opt/onesender-1      -> aplikasi pertama
+    |-- resource
+    |-- onesender-1        -> symlink ke path /opt/onesender-master/onesender-x86_64
+    |-- config_1.yaml      -> file config instance pertama
+```
+
+Skrip ini juga membuat file init script yang salah satu fungsinya menjalankan aplikasi secara otomatis. Yaitu ketika server restart.
+Lokasi init file berada di path: `/etc/systemd/system/onesender1.service`
+
+Untuk mengoperasikan service OneSender gunakan command berikut
+```
+# cek status
+systemctl status onesender1
+
+# menghidupkan onesender nomor 1
+systemctl start onesender1
+
+# nonaktifkan onesender nomor 1
+systemctl stop onesender1
 ```
