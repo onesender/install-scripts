@@ -1,4 +1,4 @@
-# Template Pesan
+# Template Pesan WooCommerce
 
 Template pesan plugin integrasi WooCommerce menggunakan template engine [twig](https://twig.symfony.com/doc/3.x/). Sehingga tag dan fungsi-fungsi templating di twig dapat digunakan di plugin.
 
@@ -49,8 +49,8 @@ Produk:
 *{{item.nama_produk}}*
 Qty:{{item.qty}} 
 Harga: {{item.harga}}
-
 {% endfor %}
+
 Total fee: {{total_fee}}
 Total invoice: {{jumlah_tagihan}}
 
